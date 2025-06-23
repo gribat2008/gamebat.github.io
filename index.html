@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Game: Guess + Mines + Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Оверлей для затемнения фона -->
+  <div id="overlay"></div>
+
+  <h1>Game: Guess + Mines + Login</h1>
+
+  <!-- Экран входа -->
+  <div id="login-screen">
+    <h2>Login to the game</h2>
+    <input type="text" id="username" placeholder="Enter your name" />
+    <button onclick="login()">Log in</button>
+  </div>
+
+  <!-- Игровой экран -->
+  <div id="game-screen" style="display:none;">
+    <p>Hi, <span id="player-name"></span>! Balance: <span id="coins">100</span> coins</p>
+
+    <label for="mode">Выбери режим:</label>
+    <select id="mode" onchange="switchMode()">
+      <option value="casino">Guess the number (1–10, Bet)</option>
+      <option value="hard">Guess the number (1–100, Hints)</option>
+      <option value="bombs">Mines (Pick the squares)</option>
+    </select>
+
+    <div id="game-area">
+
+      <!-- Режим казино (1–10) -->
+      <div id="casino-mode" class="mode-section">
+        <input type="number" id="casino-guess" placeholder="number 1–10" min="1" max="10" />
+        <input type="number" id="casino-bet" placeholder="Bat" min="1" />
+        <button onclick="playCasino()">Play</button>
+      </div>
+
+      <!-- Режим hard (1–100) -->
+      <div id="hard-mode" class="mode-section" style="display:none;">
+        <p>Guess the number from 1 to 100 in <span id="hard-tries">7</span> attempts</p>
+        <input type="number" id="hard-guess" placeholder="number 1–100" min="1" max="100" />
+        <button onclick="playHard()">Make a guess</button>
+        <button onclick="resetHard()">Reset game</button>
+      </div>
+
+      <!-- Режим "Бомбы" -->
+      <div id="bombs-mode" class="mode-section" style="display:none;">
+        <p>Pick the squares — avoid the mines! Attempts left: <span id="bombs-tries">5</span></p>
+        <div id="bombs-grid"></div>
+        <button onclick="resetBombs()">Start call</button>
+      </div>
+
+    </div>
+
+    <p id="message"></p>
+
+    <button onclick="getFreeCoins()">Get 20 coins  (watch an ad)</button>
+
+    <!-- Статистика и таблица рекордов -->
+    <div id="stats-records" style="margin-top:30px; text-align:left;">
+      <h2>Player stats</h2>
+      <p>Games played: <span id="stat-games">0</span></p>
+      <p>Wins: <span id="stat-wins">0</span></p>
+      <p>Losses: <span id="stat-losses">0</span></p>
+
+      <h2>Leaderboard (Top 5 by balance)</h2>
+      <ol id="leaderboard"></ol>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
